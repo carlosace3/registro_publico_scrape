@@ -1,0 +1,14 @@
+# .gitignore
+*.pyc
+__pycache__/
+.env
+service_account.json
+files/
+api/
+capsolver/
+scrape/
+test/
+docker-compose.yml
+.venv/
+main/send_data.py
+main/Dockerfile
