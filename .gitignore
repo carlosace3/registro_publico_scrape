@@ -11,4 +11,6 @@ test/
 docker-compose.yml
 .venv/
 main/send_data.py
-main/Dockerfile
+Dockerfile
+.dockerignore
+

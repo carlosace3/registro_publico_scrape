@@ -11,7 +11,15 @@ username = "carlosace3@gmail.com"
 pswd  = "Acedo.12345"
 
 def get_driver():
-    extension_path = os.path.abspath('./CapSolver.Browser.Extension')
+     # Verifica si está en Docker (usa una variable de entorno como indicador)
+    is_docker = os.getenv("DOCKER", "false").lower() == "true"
+    # Define la ruta de la extensión
+    if is_docker:
+        # Ruta dentro del contenedor Docker
+        extension_path = "/app/CapSolver.Browser.Extension"
+    else:
+        extension_path = r'C:\Users\carlo\Projects\registro_publico\CapSolver.Browser.Extension'
+
     chrome_options = Options()
     chrome_options.add_argument(f'--load-extension={extension_path}')
     chrome_options.add_argument("--headless=new")

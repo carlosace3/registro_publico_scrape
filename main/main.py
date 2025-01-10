@@ -154,7 +154,12 @@ def main(start_point,end_point,year,month_folder):
 
     all_data, all_errors = parallel_scraping(start_point, end_point, year, workers=workers)
 
-    SERVICE_ACCOUNT_FILE = r'C:\Users\carlo\Projects\registro_publico\service_account.json'
+    is_docker = os.getenv("DOCKER", "false").lower() == "true"
+    if is_docker:
+        SERVICE_ACCOUNT_FILE = '/app/service_account.json'
+    else:
+        SERVICE_ACCOUNT_FILE = r'C:\Users\carlo\Projects\registro_publico\service_account.json'
+        
     # Autenticación
     credentials = Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE,
@@ -206,10 +211,10 @@ def main(start_point,end_point,year,month_folder):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script para scraping con argparse")
-    parser.add_argument("--start_point", type=int, help="El punto de inicio del scrape")
+    parser.add_argument("--start_point", type=int, help="El punto de inicio del scrape",required=True)
     parser.add_argument("--end_point", type=int, help="Punto final del scrape")
-    parser.add_argument("--year", type=int, help="Año del scrape")
-    parser.add_argument("--month_folder", type=str, help="Carpeta de mes en la cual guardar")
+    parser.add_argument("--year", type=int, help="Año del scrape", required=True)
+    parser.add_argument("--month_folder", type=str, help="Carpeta de mes en la cual guardar", required=True)
 
     args = parser.parse_args()
 
